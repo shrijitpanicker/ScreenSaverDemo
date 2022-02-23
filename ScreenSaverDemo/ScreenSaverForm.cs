@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LibVLCSharp.Shared;
+using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -20,6 +22,7 @@ namespace ScreenSaverDemo
         static extern bool GetClientRect(IntPtr hWnd, out Rectangle lpRect);
 
         private bool previewMode = false;
+        private Point mouseLocation;
 
         public ScreenSaverForm(IntPtr previewWndHandle)
         {
@@ -46,6 +49,70 @@ namespace ScreenSaverDemo
         {
             InitializeComponent();
             this.Bounds = bounds;
+        }
+
+        private void ScreenSaverForm_Load(object sender, EventArgs e)
+        {
+            // Initialize the settings variables
+            float brightness = 10F;
+            float contrast = 10F;
+            float hue = 10F;
+            float saturation = 10F;
+            float gamma = 10F;
+
+
+            // Use the settings from the Registry if it exists
+            RegistryKey regKey = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cennest_Demo_ScreenSaver");
+
+            if(regKey == null)
+            {
+                regKey.SetValue("brightness", brightness.ToString());
+                regKey.SetValue("contrast", contrast.ToString());
+                regKey.SetValue("hue", hue.ToString());
+                regKey.SetValue("saturation", saturation.ToString());
+                regKey.SetValue("gamma", gamma.ToString());
+            }
+
+            else
+            {
+                brightness = float.Parse((string)regKey.GetValue("brightness")) / 10;
+                contrast = float.Parse((string)regKey.GetValue("contrast")) / 10;
+                hue = float.Parse((string)regKey.GetValue("hue")) / 10;
+                saturation = float.Parse((string)regKey.GetValue("saturation")) / 10;
+                gamma = float.Parse((string)regKey.GetValue("gamma")) / 10;
+            }
+
+            // Hiding the cursor and setting the Form Window State
+            Cursor.Hide();
+            TopMost = true;
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+
+            // Initialising LibVLC and other objects need to capture and play the incoming stream
+            Core.Initialize();
+            LibVLC _libVLC = new LibVLC("--video-filter=transform", "--transform-type=hflip", "--no-audio", " --live-caching=1", "--dshow-vdev=USB2.0 UVC PC Camera", "--dshow-adev=none", "--avcodec-hw=d3d11va");
+            MediaPlayer _mediaPlayer = new MediaPlayer(_libVLC);
+            Media media = new Media(_libVLC, "dshow://", FromType.FromLocation);
+
+            //Setting the Video View properties
+            vlcVideoView.Visible = true;
+            vlcVideoView.Dock = DockStyle.Fill;
+            vlcVideoView.MediaPlayer.AspectRatio = $"{vlcVideoView.Width.ToString()}:{vlcVideoView.Height.ToString()}";
+            vlcVideoView.MediaPlayer = _mediaPlayer;
+
+            // Setting the media player properties
+            _mediaPlayer.Scale = 0;
+            _mediaPlayer.FileCaching = 0;
+
+            // Enabling Video Adjust Options and setting the properties
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Enable, 1);
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Brightness, brightness);
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Contrast, contrast);
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Hue, hue);
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Saturation, saturation);
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Gamma, gamma);
+
+            _mediaPlayer.Play(media);
         }
     }
 }

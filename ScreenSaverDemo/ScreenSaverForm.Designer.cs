@@ -51,6 +51,7 @@
             this.Controls.Add(this.vlcVideoView);
             this.Name = "ScreenSaverForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.ScreenSaverForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.vlcVideoView)).EndInit();
             this.ResumeLayout(false);
 
