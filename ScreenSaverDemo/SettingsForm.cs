@@ -5,23 +5,16 @@ namespace ScreenSaverDemo
 {
     public partial class SettingsForm : Form
     {
-        private float brightness;
-        private float contrast;
-        private float hue;
-        private float saturation;
-        private float gamma;
+        private float brightness = 10F;
+        private float contrast = 10F;
+        private float hue = 10F;
+        private float saturation = 10F;
+        private float gamma = 10F;
 
         public SettingsForm()
         {
             InitializeComponent();
             LoadSettings();
-        }
-
-        private float setValueInRegistryAndReturnValue(string key, string value)
-        {
-            RegistryKey regKey = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cennest_Demo_ScreenSaver");
-            regKey.SetValue(key, value);
-            return float.Parse(value);
         }
 
         private void LoadSettings()
@@ -30,24 +23,19 @@ namespace ScreenSaverDemo
             // Get the value stored in the Registry
             if (key == null || key.SubKeyCount == 0 || key.SubKeyCount == 1)
             {
-                brightness = 10F;
                 key.SetValue("brightness", brightness.ToString());
-                contrast = 10F;
                 key.SetValue("contrast", contrast.ToString());
-                hue = 10F;
                 key.SetValue("hue", hue.ToString());
-                saturation = 10F;
                 key.SetValue("saturation", hue.ToString());
-                gamma = 10F;
                 key.SetValue("gamma", gamma.ToString());
             }
             else
             {
-                brightness = key.GetValue("brightness") != null ? (float.Parse((string)key.GetValue("brightness"))) : setValueInRegistryAndReturnValue("brightness", "10");
-                contrast = key.GetValue("contrast") != null ? (float.Parse((string)key.GetValue("contrast"))) : setValueInRegistryAndReturnValue("contrast", "10");
-                hue = key.GetValue("hue") != null ? (float.Parse((string)key.GetValue("hue"))) : setValueInRegistryAndReturnValue("hue", "10");
-                saturation = key.GetValue("saturation") != null ? (float.Parse((string)key.GetValue("saturation"))) : setValueInRegistryAndReturnValue("saturation", "10");
-                gamma = key.GetValue("gamma") != null ? (float.Parse((string)key.GetValue("gamma"))) : setValueInRegistryAndReturnValue("gamma", "10");
+                brightness = key.GetValue("brightness") != null ? (float.Parse((string)key.GetValue("brightness"))) : brightness;
+                contrast = key.GetValue("contrast") != null ? (float.Parse((string)key.GetValue("contrast"))) : contrast;
+                hue = key.GetValue("hue") != null ? (float.Parse((string)key.GetValue("hue"))) : hue;
+                saturation = key.GetValue("saturation") != null ? (float.Parse((string)key.GetValue("saturation"))) : saturation;
+                gamma = key.GetValue("gamma") != null ? (float.Parse((string)key.GetValue("gamma"))) : gamma;
             }
 
             brightnessTrackBar.Value = ((int)brightness);
