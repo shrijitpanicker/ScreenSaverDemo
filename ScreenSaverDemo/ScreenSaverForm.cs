@@ -133,8 +133,11 @@ namespace ScreenSaverDemo
 
         private void ScreenSaverForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Close();
-            Application.Exit();
+            if(!previewMode)
+            {
+                Close();
+                Application.Exit();
+            }
         }
 
         private void ScreenSaverForm_Click(object sender, EventArgs e)
