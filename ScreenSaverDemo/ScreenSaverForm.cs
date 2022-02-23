@@ -64,7 +64,7 @@ namespace ScreenSaverDemo
             // Use the settings from the Registry if it exists
             RegistryKey regKey = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cennest_Demo_ScreenSaver");
 
-            if(regKey == null)
+            if(regKey == null || regKey.SubKeyCount == 0 || regKey.SubKeyCount == 1)
             {
                 regKey.SetValue("brightness", brightness.ToString());
                 regKey.SetValue("contrast", contrast.ToString());
@@ -75,11 +75,11 @@ namespace ScreenSaverDemo
 
             else
             {
-                brightness = float.Parse((string)regKey.GetValue("brightness")) / 10;
-                contrast = float.Parse((string)regKey.GetValue("contrast")) / 10;
-                hue = float.Parse((string)regKey.GetValue("hue")) / 10;
-                saturation = float.Parse((string)regKey.GetValue("saturation")) / 10;
-                gamma = float.Parse((string)regKey.GetValue("gamma")) / 10;
+                brightness = float.Parse((string)regKey.GetValue("brightness"));
+                contrast = float.Parse((string)regKey.GetValue("contrast"));
+                hue = float.Parse((string)regKey.GetValue("hue"));
+                saturation = float.Parse((string)regKey.GetValue("saturation"));
+                gamma = float.Parse((string)regKey.GetValue("gamma"));
             }
 
             // Hiding the cursor and setting the Form Window State
@@ -106,11 +106,11 @@ namespace ScreenSaverDemo
 
             // Enabling Video Adjust Options and setting the properties
             _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Enable, 1);
-            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Brightness, brightness);
-            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Contrast, contrast);
-            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Hue, hue);
-            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Saturation, saturation);
-            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Gamma, gamma);
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Brightness, (brightness/10));
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Contrast, (contrast/10));
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Hue, (hue/10));
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Saturation, (saturation/10));
+            _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Gamma, (gamma/10));
 
             _mediaPlayer.Play(media);
         }

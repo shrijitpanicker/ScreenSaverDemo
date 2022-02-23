@@ -28,7 +28,7 @@ namespace ScreenSaverDemo
         {
             RegistryKey key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cennest_Demo_ScreenSaver");
             // Get the value stored in the Registry
-            if (key == null)
+            if (key == null || key.SubKeyCount == 0 || key.SubKeyCount == 1)
             {
                 key.SetValue("brightness", "10");
                 key.SetValue("contrast", "10");
