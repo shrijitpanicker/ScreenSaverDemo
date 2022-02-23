@@ -97,8 +97,8 @@ namespace ScreenSaverDemo
             //Setting the Video View properties
             vlcVideoView.Visible = true;
             vlcVideoView.Dock = DockStyle.Fill;
-            vlcVideoView.MediaPlayer.AspectRatio = $"{vlcVideoView.Width.ToString()}:{vlcVideoView.Height.ToString()}";
             vlcVideoView.MediaPlayer = _mediaPlayer;
+            vlcVideoView.MediaPlayer.AspectRatio = $"{vlcVideoView.Width.ToString()}:{vlcVideoView.Height.ToString()}";
 
             // Setting the media player properties
             _mediaPlayer.Scale = 0;
@@ -133,6 +133,7 @@ namespace ScreenSaverDemo
 
         private void ScreenSaverForm_KeyPress(object sender, KeyPressEventArgs e)
         {
+            Close();
             Application.Exit();
         }
 
@@ -143,6 +144,7 @@ namespace ScreenSaverDemo
 
         private void vlcVideoView_KeyPress(object sender, KeyPressEventArgs e)
         {
+            Close();
             Application.Exit();
         }
     }

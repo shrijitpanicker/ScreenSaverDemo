@@ -41,6 +41,7 @@
             this.vlcVideoView.Size = new System.Drawing.Size(788, 441);
             this.vlcVideoView.TabIndex = 0;
             this.vlcVideoView.Text = "vlcVideoView";
+            this.vlcVideoView.Visible = false;
             this.vlcVideoView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.vlcVideoView_KeyPress);
             // 
             // ScreenSaverForm
