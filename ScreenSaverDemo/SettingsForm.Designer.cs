@@ -62,6 +62,7 @@
             this.brightnessTrackBar.Name = "brightnessTrackBar";
             this.brightnessTrackBar.Size = new System.Drawing.Size(411, 56);
             this.brightnessTrackBar.TabIndex = 0;
+            this.brightnessTrackBar.Scroll += new System.EventHandler(this.brightnessTrackBar_Scroll);
             // 
             // brightnessTextBox
             // 
@@ -85,6 +86,7 @@
             this.contrastTrackBar.Name = "contrastTrackBar";
             this.contrastTrackBar.Size = new System.Drawing.Size(411, 56);
             this.contrastTrackBar.TabIndex = 2;
+            this.contrastTrackBar.Scroll += new System.EventHandler(this.contrastTrackBar_Scroll);
             // 
             // hueTextBox
             // 
@@ -101,6 +103,7 @@
             this.hueTrackBar.Name = "hueTrackBar";
             this.hueTrackBar.Size = new System.Drawing.Size(411, 56);
             this.hueTrackBar.TabIndex = 4;
+            this.hueTrackBar.Scroll += new System.EventHandler(this.hueTrackBar_Scroll);
             // 
             // saturationTextBox
             // 
@@ -117,6 +120,7 @@
             this.saturationTrackBar.Name = "saturationTrackBar";
             this.saturationTrackBar.Size = new System.Drawing.Size(411, 56);
             this.saturationTrackBar.TabIndex = 6;
+            this.saturationTrackBar.Scroll += new System.EventHandler(this.saturationTrackBar_Scroll);
             // 
             // gammaTextBox
             // 
@@ -133,6 +137,7 @@
             this.gammaTrackBar.Name = "gammaTrackBar";
             this.gammaTrackBar.Size = new System.Drawing.Size(411, 56);
             this.gammaTrackBar.TabIndex = 8;
+            this.gammaTrackBar.Scroll += new System.EventHandler(this.gammaTrackBar_Scroll);
             // 
             // brightnessLabel
             // 
@@ -185,7 +190,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(330, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(140, 39);
+            this.label6.Size = new System.Drawing.Size(135, 38);
             this.label6.TabIndex = 15;
             this.label6.Text = "Settings";
             // 
@@ -206,6 +211,7 @@
             this.okButton.TabIndex = 17;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // cancelButton
             // 
@@ -215,6 +221,7 @@
             this.cancelButton.TabIndex = 18;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // SettingsForm
             // 
