@@ -114,5 +114,36 @@ namespace ScreenSaverDemo
 
             _mediaPlayer.Play(media);
         }
+
+        private void ScreenSaverForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!mouseLocation.IsEmpty)
+            {
+                // Terminate if mouse is moved a significant distance
+                if (Math.Abs(mouseLocation.X - e.X) > 5 ||
+                    Math.Abs(mouseLocation.Y - e.Y) > 5)
+                { 
+                    Application.Exit(); 
+                }
+            }
+
+            // Update current mouse location
+            mouseLocation = e.Location;
+        }
+
+        private void ScreenSaverForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ScreenSaverForm_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void vlcVideoView_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -41,6 +41,7 @@
             this.vlcVideoView.Size = new System.Drawing.Size(788, 441);
             this.vlcVideoView.TabIndex = 0;
             this.vlcVideoView.Text = "vlcVideoView";
+            this.vlcVideoView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.vlcVideoView_KeyPress);
             // 
             // ScreenSaverForm
             // 
@@ -52,6 +53,9 @@
             this.Name = "ScreenSaverForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ScreenSaverForm_Load);
+            this.Click += new System.EventHandler(this.ScreenSaverForm_Click);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ScreenSaverForm_KeyPress);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ScreenSaverForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.vlcVideoView)).EndInit();
             this.ResumeLayout(false);
 
