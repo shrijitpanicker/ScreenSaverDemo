@@ -93,16 +93,17 @@ public ScreenSaverForm(IntPtr previewWndHandle)
             MediaPlayer _mediaPlayer = new MediaPlayer(_libVLC);
             Media media = new Media(_libVLC, "dshow://", FromType.FromLocation);
 
+            // Setting the media player properties
+            _mediaPlayer.Scale = 0;
+            _mediaPlayer.FileCaching = 0;
+
+
             //Setting the Video View properties
             vlcVideoView.Visible = true;
             vlcVideoView.Dock = DockStyle.Fill;
             vlcVideoView.MediaPlayer = _mediaPlayer;
             vlcVideoView.MediaPlayer.AspectRatio = $"{vlcVideoView.Width.ToString()}:{vlcVideoView.Height.ToString()}";
-
-            // Setting the media player properties
-            _mediaPlayer.Scale = 0;
-            _mediaPlayer.FileCaching = 0;
-
+            
             // Enabling Video Adjust Options and setting the properties
             _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Enable, 1);
             _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Brightness, (brightness/10));
@@ -112,8 +113,17 @@ public ScreenSaverForm(IntPtr previewWndHandle)
             _mediaPlayer.SetAdjustFloat(LibVLCSharp.Shared.VideoAdjustOption.Gamma, (gamma/10));
 
             _mediaPlayer.Play(media);
+            _mediaPlayer.Playing += OnPlaying;
+
         }
 
+
+        private void OnPlaying(object sender, EventArgs e)
+        {
+            // Need to set these to false so that the Video View is able to detect click and key input
+            vlcVideoView.MediaPlayer.EnableKeyInput = false;
+            vlcVideoView.MediaPlayer.EnableMouseInput = false;
+        }
         private void ScreenSaverForm_MouseMove(object sender, MouseEventArgs e)
         {
             if (!mouseLocation.IsEmpty)
@@ -134,7 +144,6 @@ public ScreenSaverForm(IntPtr previewWndHandle)
         {
             if(!previewMode)
             {
-                Close();
                 Application.Exit();
             }
         }
@@ -146,13 +155,17 @@ public ScreenSaverForm(IntPtr previewWndHandle)
 
         private void vlcVideoView_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Close();
             Application.Exit();
         }
 
         private void ScreenSaverForm_Deactivate(object sender, EventArgs e)
         {
             vlcVideoView.MediaPlayer.Dispose();
+        }
+
+        private void vlcVideoView_MouseClick(object sender, MouseEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
