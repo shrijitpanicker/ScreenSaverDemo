@@ -139,5 +139,10 @@ public ScreenSaverForm(IntPtr previewWndHandle)
         {
             Application.Exit();
         }
+
+        private void vlcVideoView_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

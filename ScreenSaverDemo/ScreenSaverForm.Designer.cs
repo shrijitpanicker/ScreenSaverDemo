@@ -42,6 +42,7 @@
             this.vlcVideoView.TabIndex = 0;
             this.vlcVideoView.Text = "vlcVideoView";
             this.vlcVideoView.Visible = false;
+            this.vlcVideoView.Click += new System.EventHandler(this.vlcVideoView_Click);
             this.vlcVideoView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.vlcVideoView_KeyPress);
             this.vlcVideoView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.vlcVideoView_MouseClick);
             // 
