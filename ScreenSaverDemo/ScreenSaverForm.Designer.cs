@@ -53,6 +53,7 @@
             this.Controls.Add(this.vlcVideoView);
             this.Name = "ScreenSaverForm";
             this.Text = "Form1";
+            this.Deactivate += new System.EventHandler(this.ScreenSaverForm_Deactivate);
             this.Load += new System.EventHandler(this.ScreenSaverForm_Load);
             this.Click += new System.EventHandler(this.ScreenSaverForm_Click);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ScreenSaverForm_KeyPress);

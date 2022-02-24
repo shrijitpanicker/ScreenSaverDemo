@@ -24,7 +24,8 @@ namespace ScreenSaverDemo
         private bool previewMode = false;
         private Point mouseLocation;
 
-        public ScreenSaverForm(IntPtr previewWndHandle)
+
+public ScreenSaverForm(IntPtr previewWndHandle)
         {
             InitializeComponent();
 
@@ -40,7 +41,6 @@ namespace ScreenSaverDemo
             GetClientRect(previewWndHandle, out ParentRect);
             Size = ParentRect.Size;
             Location = new Point(0, 0);
-
 
             previewMode = true;
         }
@@ -59,7 +59,6 @@ namespace ScreenSaverDemo
             float hue = 10F;
             float saturation = 10F;
             float gamma = 10F;
-
 
             // Use the settings from the Registry if it exists
             RegistryKey regKey = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Cennest_Demo_ScreenSaver");
@@ -90,7 +89,7 @@ namespace ScreenSaverDemo
 
             // Initialising LibVLC and other objects need to capture and play the incoming stream
             Core.Initialize();
-            LibVLC _libVLC = new LibVLC("--video-filter=transform", "--transform-type=hflip", "--no-audio", " --live-caching=1", "--dshow-vdev=USB2.0 UVC PC Camera", "--dshow-adev=none", "--avcodec-hw=d3d11va");
+            LibVLC _libVLC = new LibVLC("--video-filter=transform", "--transform-type=hflip", "--no-audio", " --live-caching=1", "--dshow-adev=none", "--avcodec-hw=d3d11va");
             MediaPlayer _mediaPlayer = new MediaPlayer(_libVLC);
             Media media = new Media(_libVLC, "dshow://", FromType.FromLocation);
 
@@ -149,6 +148,11 @@ namespace ScreenSaverDemo
         {
             Close();
             Application.Exit();
+        }
+
+        private void ScreenSaverForm_Deactivate(object sender, EventArgs e)
+        {
+            vlcVideoView.MediaPlayer.Dispose();
         }
     }
 }
