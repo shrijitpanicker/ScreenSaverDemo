@@ -160,7 +160,7 @@ public ScreenSaverForm(IntPtr previewWndHandle)
 
         private void ScreenSaverForm_Deactivate(object sender, EventArgs e)
         {
-            vlcVideoView.MediaPlayer.Dispose();
+            Application.Exit();
         }
 
         private void vlcVideoView_MouseClick(object sender, MouseEventArgs e)
